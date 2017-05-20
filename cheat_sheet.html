@@ -1,0 +1,891 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      Octave Cheatsheet
+    </title>
+
+    <style>
+      body {
+        font-family: Arial,sans-serif;
+        background: white;
+      }
+
+      div.body {
+        width: 100%;
+      }
+
+      div.intro {
+        width: 80%;
+        margin-left: 20px;
+        page-break-after: always;
+      }
+
+      div.column {
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
+        width: 24%;
+        padding: 15px;
+      }
+
+      div.section {
+        margin: 10 auto;
+      }
+
+      dt {
+        background-color: #dddddd;
+      }
+
+      div.group {
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: row;
+        page-break-after: always;
+      }
+
+      div.title {
+      }
+
+      h1 {
+        font-style: normal;
+        font-weight: normal;
+        color: #555555;
+        padding-left: 5px;
+      }
+
+      h2 {
+        font-style: normal;
+        font-weight: normal;
+        color: #333333;
+        padding-left: 5px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <h1>Octave CheatSheet v 0.1</h1>
+
+    <div class="body">
+
+      <div class="intro">
+        <p>
+          This cheatsheet is intended to give basic forms of the main commands you might want
+          for the Coursera Machine Learning course.  I have my biases, so I include a few
+          alternative forms of statement syntax, and reference C syntax as a presumed known thing. Them's
+          the breaks.  Many functions here have more advanced forms or can take additional parameters;
+          there's the Octave help command for that.
+        </p>
+        <p>
+          Notation: names enclosed in &lt;...&gt; are intended to be parameters of a specific
+          type.  ^a means Control-a (written by some folks as C-a).
+        </p>
+        <p>
+          Octave, being a GNU production, has full readline (command history) support,
+          which means emacs key bindings.  In case you're not an emacs person, I've added
+          a section with the most useful bindings.
+        </p>
+        <p>
+          I generated a pdf of this page using A3 paper settings (Chrome) and A3 Extra (Firefox).
+          It worked for me with appropriate page breaks and being reasonably readable. Your mileage may vary.
+        </p>
+        <p>
+          This cheatsheet may be distributed under the GPL 2.0 or later, or the GFDL 1.3 or later,
+          whichever works for you.  There are likely to be errors, no warranty is provided, caveat emptor etc.
+          Pull requests can go to http://github.com/apergos/octavejunk or just fork and fix up
+          to meet your needs.
+        </p>
+        <p>
+          Folks with strong opinions one way or the other on Richard M. Stallman, may appreciate
+          the following command, not listed with the rest on the cheat sheet:
+        </p>
+        <p style="text-indent: 1em;">
+          <strong>fact</strong>
+        </p>
+        <p>
+          If you want to know what it does, you'll have to try it yourself; no spoilers here.
+        </p>
+        <p>
+          That is all.
+        </p>
+      </div>
+
+      <div class="group">
+
+        <div class="column">
+
+          <div class="section">
+            <div class="title">
+              <h2>Getting around</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  exit, quit
+                </dt>
+                <dd>
+                  exit Octave
+                </dd>
+                <dt>
+                  help &lt;command&gt;
+                </dt>
+                <dd>
+                  show help for given command
+                </dd>
+                <dt>
+                  pwd
+                </dt>
+                <dd>
+                  show working directory from which files will be loaded
+                </dd>
+                <dt>
+                  cwd &lt;path&gt;
+                </dt>
+                <dd>
+                  change working directory to specified path
+                </dd>
+                <dt>
+                  ls
+                </dt>
+                <dd>
+                  display working directory contents
+                </dd>
+                <dt>
+                  PS1(&quot;&lt;stuff&gt;&quot;)
+                </dt>
+                <dd>
+                  customize the Octave prompt; see http://bit.ly/2pW4Eot
+                  (www.gnu.org docs, "Customizing the Prompt")
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">
+              <h2>Variables and data</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  who
+                </dt>
+                <dd>
+                  list all defined variables
+                </dd>
+                <dt>
+                  whos
+                </dt>
+                <dd>
+                  display name, type, size of all defined variables
+                </dd>
+                <dt>
+                  load('&lt;filename&gt;.dat')
+                </dt>
+                <dd>
+                  load data from specified file, into variable &lt;filename&gt;
+                </dd>
+                <dt>
+                  csvread('&lt;filename&gt;.dat')
+                </dt>
+                <dd>
+                  load comma-separated values data from file into variable
+                  &lt;filename&gt;
+                </dd>
+                <dt>
+                  clear [&lt;varname&gt;]
+                </dt>
+                <dd>
+                  unset specified variable; if no varname is supplied,
+                  unset all defined variables
+                </dd>
+                <dt>
+                  save &lt;filename&gt; &lt;varname&gt;
+                </dt>
+                <dd>
+                  save variable into specified file in working directory
+                </dd>
+                <dt>
+                  disp(&lt;varname&gt;)
+                </dt>
+                <dd>
+                  display value of variable to the console
+                </dd>
+                <dt>
+                  disp(sprintf(&lt;format&gt;,&lt;varname&gt;))
+                </dt>
+                <dd>
+                  display value of variable to the console, with specified
+                  format
+                </dd>
+                <dt>
+                  global &lt;varname&gt;
+                </dt>
+                <dd>
+                  define variable to be global (visible in any function); note that
+                  for a function to access that variable it must also contain a global
+                  declaration for it.
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="column">
+
+          <div class="section">
+            <div class="title">
+              <h2>Basic syntax</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  % or #
+                </dt>
+                <dd>
+                  comment (can be inline)
+                </dd>
+                <dt>
+                  #{ ... }#  or %{ ... }%
+                </dt>
+                <dd>
+                  block comment
+                </dd>
+                <dt>
+                  "stuff"  or 'stuff'
+                </dt>
+                <dd>
+                  string; content inside of double quotes gets backslash handling
+                </dd>
+                <dt>
+                  ;
+                </dt>
+                <dd>
+                  optional at end of statement to suppress displaying
+                  result of statement
+                </dd>
+                <dt>
+                  indentation
+                </dt>
+                <dd>
+                  for human convenience only, no syntactical meaning
+                </dd>
+                <dt>
+                  &lt;varname&gt;
+                </dt>
+                <dd>
+                  displays &lt;varname&gt; = &lt;current value&gt; (unless followed by a semicolon)
+                </dd>
+                <dt>
+                  printf(), scanf()
+                </dt>
+                <dd>
+                  just like C
+                </dd>
+                <dt>
+                  fprintf(), fscanf()
+                </dt>
+                <dd>
+                  just like C. If the file handle is omitted
+                  for fprintf, it behaves just like printf.
+                </dd>
+                <dt>
+                  fopen(), fclose()
+                </dt>
+                <dd>
+                  just like C.
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">
+              <h2>Operators</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  + - * / ^
+                </dt>
+                <dd>
+                  standard numerical operators
+                </dd>
+                <dt>
+                  & and | or ~ ! not
+                </dt>
+                <dd>
+                  standard boolean operators; '&' and 'and' are synonyms, '|' and
+                  'or' are synonyms, '~', '!'  and 'not' are synonyms.
+                </dd>
+                <dt>
+                  && ||
+                </dt>
+                <dd>
+                  boolean 'short-circuit' operators that stop as soon as the truth
+                  of the condition is determined, rather than continuing to evaluate
+                </dd>
+                <dt>
+                  xor()
+                </dt>
+                <dd>
+                  logical exclusive or
+                </dd>
+                <dt>
+                  == ~= &lt;= &gt;=
+                </dt>
+                <dd>
+                  comparison operators
+                </dd>
+                <dt>
+                  = += -= ++ --
+                </dt>
+                <dd>
+                  standard assignment operators right from C; increment/decrement
+                  are both pre- and postfix
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+        <div class="column">
+
+          <div class="section">
+            <div class="title">
+              <h2>Matrix operations</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  [ &lt;num1&gt; &lt;num2&gt; &lt;num3&gt; ... ]
+                </dt>
+                <dd>
+                  array (a row vector, i.e. a matrix
+                  with one row and multiple columns)
+                </dd>
+                <dt>
+                  [ &lt;num1&gt;; &lt;num2&gt;; &lt;num3&gt;; ... ]
+                </dt>
+                <dd>
+                  array (a column vector, i.e. a matrix
+                  with one column and multiple rows)
+                </dd>
+                <dt>
+                  [ &lt;num1&gt &lt;num2&gt; ...; &lt;numa&gt; &lt;numb&gt;; ... ]
+                </dt>
+                <dd>
+                  matrix with as many rows and columns as the
+                  elements specified
+                </dd>
+                <dt>
+                  + - *
+                </dt>
+                <dd>
+                  matrix addition, subtraction, multiplication
+                </dd>
+                <dt>
+                  inv(&lt;matrix&gt;)
+                </dt>
+                <dd>
+                  inversion of the matrix (will produce a warning and a result full
+                  of 'Inf' if the matrix is degenerate)
+                </dd>
+                <dt>
+                  pinv(&lt;matrix&gt;)
+                </dt>
+                <dd>
+                  pseudo-inversion of matrix, see http://bit.ly/2qI7Vox
+                  (Wikipedia, Moore-Penrose pseudoinverse)
+                </dd>
+                <dt>
+                  &lt;matrix&gt;'
+                </dt>
+                <dd>
+                  transpose of vector or matrix
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">
+              <h2>Matrix functions</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  length(), size()
+                </dt>
+                <dd>
+                  number of columns of a vector or matrix; rows and columns of
+                  a matrix
+                </dd>
+                <dt>
+                  rand()
+                </dt>
+                <dd>
+                  pseudorandom number between 0 and 1 exclusive
+                </dd>
+                <dt>
+                  eye(&lt;num&gt;)
+                </dt>
+                <dd>
+                  identity matrix of &lt;num&gt; rows, cols
+                </dd>
+                <dt>
+                  zeros(&ltrows&gt;,&lt;cols&gt;)
+                </dt>
+                <dd>
+                  zero-filled matrix of specified size
+                </dd>
+                <dt>
+                  ones(&ltrows&gt;,&lt;cols&gt;)
+                </dt>
+                <dd>
+                  matrix of specified size, filled with ones
+                </dd>
+                <dt>
+                  rand(&ltrows&gt;,&lt;cols&gt;)
+                </dt>
+                <dd>
+                  matrix of specified size, filled with pseudorandom numbers between
+                  0 and 1
+                </dd>
+                <dt>
+                  magic(&lt;number&gt;)
+                </dt>
+                <dd>
+                  'magic square' of given size (rows, columns and diagonals
+                  must have the same sum), useful for generating test data
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+        <div class="column">
+
+          <div class="section">
+            <div class="title">
+              <h2>Indexing, ranges</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  &lt;matrix&gt;(&lt;num1&gt;,&lt;num2&gt;)
+                </dt>
+                <dd>
+                  selects the element from the num1 row and the num2 column
+                </dd>
+                <dt>
+                  &lt;matrix&gt;(&lt;num&gt;,:)
+                </dt>
+                <dd>
+                  selects row &lt;num&gt;
+                </dd>
+                <dt>
+                  &lt;matrix&gt;(:,&lt;num&gt;)
+                </dt>
+                <dd>
+                  selects column &lt;num&gt;
+                </dd>
+                <dt>
+                  &lt;matrix&gt;([&lt;num1&gt;,&lt;num2&gt;,...],:)
+                </dt>
+                <dd>
+                  selects the specified rows
+                </dd>
+                <dt>
+                  &lt;matrix&gt;(:,[&lt;num1&gt;,&lt;num2&gt;,...])
+                </dt>
+                <dd>
+                  selects the specified columns
+                </dd>
+                <dt>
+                  &lt;matrix&gt;(:)
+                </dt>
+                <dd>
+                  convert matrix into a column vector by concatenating each
+                  column from the matrix in order
+                </dd>
+                <dt>
+                  [&lt;num1&gt;,&lt;num2&gt;,...; &lt;numa&gt;, &lt;numb&gt;,...; ...]
+                </dt>
+                <dd>
+                  matrix with
+                  row one = &lt;num1&gt;, &lt;num2&gt; etc,
+                  row two = &lt;numa&gt;, &lt;numb&gt;, etc,
+                  and so on
+                </dd>
+                <dt>
+                  &lt;matrix&gt;(:,&lt;number&gt;) = [...]
+                </dt>
+                <dd>
+                  replace the specified column in the matrix with the specified array
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="group">
+
+        <div class="column">
+
+          <div class="section">
+            <div class="title">
+              <h2>Control statements</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  for  &lt;condition&gt;, ... end
+                </dt>
+                <dd>
+                  your standard for loop
+                </dd>
+                <dt>
+                  while  &lt;condition&gt;, ... end
+                </dt>
+                <dd>
+                  your standard while loop
+                </dd>
+                <dt>
+                  do ... until &lt;condition&gt;
+                </dt>
+                <dd>
+                  executes the command block until the specified condition is met
+                </dd>
+                <dt>
+                  if  &lt;condition&gt;, ...
+                  elseif  &lt;condition&gt;, ...
+                  else ...  end
+                </dt>
+                <dd>
+                  standard if statement; note that elseif is one word.
+                </dd>
+                <dt>
+                  break
+                </dt>
+                <dd>
+                  break from the innermost do, while, for loop.
+                </dd>
+                <dt>
+                  continue
+                </dt>
+                <dd>
+                  skip to the end of the innermost do, while, for loop and continue on.
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">
+              <h2>Command history</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  ^p, ^n
+                </dt>
+                <dd>
+                  display previous/next command
+                </dd>
+                <dt>
+                  ^f, ^b
+                </dt>
+                <dd>
+                  move forwards or backwards one character on command line
+                </dd>
+                <dt>
+                  ^a, ^e
+                </dt>
+                <dd>
+                  move to the beginning (^a) or the end (^e) of the command line text
+                </dd>
+                <dt>
+                  ^r, ^s
+                </dt>
+                <dd>
+                  search backwards (^r) or forwards (^s) from a given point in your
+                  command history for the string you type next
+                </dd>
+                <dt>
+                  ^k, ^y
+                </dt>
+                <dd>
+                  kill (delete) the rest of the line of text from cursor, or yank
+                  (insert) the last killed piece of text at the cursor
+                </dd>
+                <dt>
+                  ^t
+                </dt>
+                <dd>
+                  The single most useful editing command ever. You typed 'hlep'
+                  instead of 'help' for the umpteenth time.  Put your cursor after
+                  the 'l', do ^t.  Fixed!
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+        <div class="column">
+
+          <div class="section">
+            <div class="title">
+              <h2>Standard functions</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  sin(), cos(), tan()
+                </dt>
+                <dd>
+                  standard trig functions; for a matrix, applied to each element
+                </dd>
+                <dt>
+                  log(), log10(), exp()
+                </dt>
+                <dd>
+                  standard log and exponential functions; for a matrix, applied to
+                  each element
+                </dd>
+                <dt>
+                  abs(), sqrt()
+                </dt>
+                <dd>
+                  absolute value, square root; for a matrix, applied to each element
+                </dd>
+                <dt>
+                  sum(), prod()
+                </dt>
+                <dd>
+                  sum of array elements, product of array elements; for a matrix,
+                  returns array of function result as applied to each column
+                </dd>
+                <dt>
+                  floor(), ceil(), round()
+                </dt>
+                <dd>
+                  largest integer &lt;= argument, smallest integer &gt;= argument,
+                  integer closest to argument; for a matrix, applied to each element
+                </dd>
+                <dt>
+                  min(), max()
+                </dt>
+                <dd>
+                  minimum value of array elements, maximum value of array elements;
+                  for a matrix, returns array of min or max value from each column
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">
+              <h2>Stat functions</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  std()
+                </dt>
+                <dd>
+                  for an array, the standard deviation of the elements; see
+                  http://bit.ly/2qBFrOV (Wikipedia, Standard deviation)
+                </dd>
+                <dt>
+                  mean()
+                </dt>
+                <dd>
+                  for an array, the sum of the elements divided by the number of elements;
+                  for a matrix, the mean of each column, returned as an array
+                </dd>
+                <dt>
+                  norm()
+                </dt>
+                <dd>
+                  norm of A; for an array, square root of sum of the squares of the elements
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+        <div class="column">
+
+          <div class="section">
+            <div class="title">
+              <h2>Plotting</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  plot(&lt;variable&gt;, &lt;function&gt;)
+                </dt>
+                <dd>
+                  produce a plot in a separate window of the variable vs the function value
+                </dd>
+                <dt>
+                  hold on
+                </dt>
+                <dd>
+                  keep the plot window open and use it for subsequent plots,
+                  each new plot with a different color
+                </dd>
+                <dt>
+                  close
+                </dt>
+                <dd>
+                  close the plot window
+                </dd>
+                <dt>
+                  title(&lt;string&gt;)
+                </dt>
+                <dd>
+                  add the given title to the top of the graph
+                </dd>
+                <dt>
+                  xlabel(&lt;string&gt;)
+                </dt>
+                <dd>
+                  put the given label below the x axis in the plot
+                </dd>
+                <dt>
+                  ylabel(&lt;string&gt;)
+                </dt>
+                <dd>
+                  put the given label next to the y axis in the plot
+                </dd>
+                <dt>
+                  legend(&lt;description&gt;,&lt;description&gt;,...)
+                </dt>
+                <dd>
+                  for multiple plots in the same window, display a legend that
+                  shows the given descriptions next to each graph color
+                </dd>
+                <dt>
+                  figure(&lt;number&gt;)
+                </dt>
+                <dd>
+                  open a new plot window with the given number, or, if the window
+                  already exists, make it visible/active
+                </dd>
+                <dt>
+                  subplot(&lt;num1&gt;,&lt;num2&gt;,&lt;num3&gt;)
+                </dt>
+                <dd>
+                  dividing up the plot window into a &lt;num1&gt; by &lt;num2&gt; grid
+                  for display of multiple plots in columns and/or rows,
+                  place the new plot in the &lt;num3&gt; position in the grid; grid
+                  positions are counted 1, 2 ... n for the first row,
+                  n+1  ... 2n for the second row, etc.
+                </dd>
+                <dt>
+                  axis([&lt;numx0&gt; &lt;numx1&gt; &lt;numy0&gt; &lt;numy1&gt;])
+                </dt>
+                <dd>
+                  set the lower and upper limits for the x and y axis, respectively
+                </dd>
+                <dt>
+                  plot(&lt;variable&gt;, &lt;function&gt;, 'rx')
+                </dt>
+                <dd>
+                  plot the points as red X's; many other styles and colors
+                  are available, see http://bit.ly/2qBHpij (www.gnu.org docs, Two Dimensional Plots)
+                </dd>
+                <dt>
+                  plot(&lt;variable&gt;, &lt;function&gt;, 'MarkerSize', 10)
+                </dt>
+                <dd>
+                  plot the points rather larger than normal (default size is 6)
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+        <div class="column">
+
+          <div class="section">
+            <div class="title">
+              <h2>Function definitions</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  function &lt;function_name&gt; ... end
+                </dt>
+                <dd>
+                  define a function with no parameters or return value
+                </dd>
+                <dt>
+                  function &lt;retval&gt; =
+                  &lt;function_name&gt; (&lt;param1&gt;, &lt;param2&gt;, ...)
+                  ... end
+                </dt>
+                <dd>
+                  define a function with the given name that returns the variable
+                  retval, with the specified parameters
+                </dd>
+                <dt>
+                  function [&lt;retval1&gt;, &lt;retval2&gt; ...] =
+                  &lt;function_name&gt; (&lt;param1&gt;, &lt;param2&gt;, ...)
+                  ... end
+                </dt>
+                <dd>
+                  define a function with the given name that returns the listed
+                  return values, with the specified parameters
+                </dd>
+                <dt>
+                  function &lt;function_name&gt; (&lt;param1&gt; = &lt;defaultval&gt;)
+                  ... end
+                </dt>
+                <dd>
+                  define a function with the given name that uses the default value
+                  provided if the caller does not supply the parameter (syntax extends
+                  to all other forms of function definition)
+                </dd>
+                <dt>
+                  return
+                </dt>
+                <dd>
+                  explicitly return from a function; note that return values aren't 'returned'
+                  this way, they have to be assigned to the variables specified in the function
+                  definition
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">
+              <h2>More here</h2>
+            </div>
+            <div class="section_contents">
+              <dl>
+                <dt>
+                  Placeholder
+                </dt>
+                <dd>
+                  Nothing here yet, maybe in a future version!
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>
